@@ -36,3 +36,10 @@ Oops! The addittion is adding two strings together, rather than interpret them a
 > expected 3 but got 3
 
 Oops again! We've got the right answer, but the assertion is expecting a string and we're giving it a number! A quick `.toString()` fixes this, but leaves a bad taste in my mouth as the code now looks quite ugly. Note to self: must refactor later.
+
+After a slight tidy up to the tests to use the one-line arrow function form we move on to our next test: 'A calculator can subtract two numbers'. This will force us to fix the implicit assumption in the top-level calc function around the operation being addition.
+
+> ✘ A calculator can subtract two numbers
+>   expected 42 but got 58
+
+Obviously it has added the two numbers together instead of subtracting, so we need to deal with switching operator. At the moment we'll just put an if statement in there, and assume that if it isn't addition then it must be subtraction. Hacky, but 'fake it till you make it'. This fixes the failing tests, now all are green.
