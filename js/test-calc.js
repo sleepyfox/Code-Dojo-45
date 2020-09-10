@@ -10,20 +10,14 @@ function lexx(input_line) {
 }
 
 const calc_tests =
-      [['A calculator can add two numbers',
-        () => {
-          return is("3", calc("+ 1 2"))
-        }
+      [['A calculator can add two numbers', () =>
+        is("3", calc("+ 1 2"))
        ],
-       ['A calculator can add two different numbers',
-        () => {
-          return is("5", calc("+ 3 2"))
-        }
+       ['A calculator can add two different numbers', () =>
+        is("42", calc("+ 40 2"))
        ],
-       ['A lexxer should be able to split a text string into parts',
-        () => {
-          return is(["+", "1", "2"], lexx("+ 1 2"))
-        }
+       ['A lexxer should be able to split a text string into parts', () =>
+        is(["+", "1", "2"], lexx("+ 1 2"))
        ]]
 
 testRunner(calc_tests)
