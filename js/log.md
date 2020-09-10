@@ -1,6 +1,8 @@
 # A first test
 
-We'll add the implementation into the same file as the tests for the moment, this is a concept called 'TDD as if you mean it', we only create other files as the target of refactorings like extract-method.
+I've chosen to use [Infintestimal](https://www.npmjs.com/package/@gowerstreet/infintestimal), a tiny test library that I wrote a year or two ago while working with [Sibilant.js](https://sibilant.org/) a small 'compile to JS' LISP varient. Although written for Sibilant it is equally effective in plain-old JavaScript, and has the advantage of being very small, fast, and treating tests as data. Plus, it doesn't futz around with exceptions, which are the cause of multiple issues with tracing test failures.
+
+I'm adding the implementation into the same file as the tests for the moment, this is a concept called 'TDD as if you mean it', we only create other files as the target of refactorings like extract-method.
 
 Add a broken test for addition, important: the API for the calculator function is text based, it takes a string and returns a string. This is the basis of the REPL. With this in mind we can ignore the mechanics of the command line, textual input and printing out the answer, i.e. all I/O, and concentrate on the Evaluation part of the REPL, which is a pure function and therefore referentially transparent.
 
