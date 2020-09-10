@@ -9,6 +9,10 @@ function calc(input_line) {
     return (parseInt(tokens[1]) + parseInt(tokens[2])).toString()
   case '*':
     return (parseInt(tokens[1]) * parseInt(tokens[2])).toString()
+  case '/':
+    return (parseInt(tokens[1]) / parseInt(tokens[2])).toString()
+  default:
+    return 'Error'
   }
 }
 
@@ -28,6 +32,12 @@ const calc_tests =
        ],
        ['A calculator can multiply two numbers', () =>
         is('42', calc('* 6 7'))
+       ],
+       ['A calculator can divide two numbers', () =>
+        is('42', calc('/ 84 2'))
+       ],
+       ['A calculator should display an error for an unrecognised operator', () =>
+        is('Error', calc('! 1 2'))
        ],
        ['A lexxer should be able to split a text string into parts', () =>
         is(['+', '1', '2'], lexx('+ 1 2'))

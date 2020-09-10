@@ -62,6 +62,12 @@ At this point a quick refactor to make my use of quotes consistent. I'm going wi
 
 `git checkout 1d6a28b`
 
-I could start to refactor the `calc` function, but at this point I really want to add multiplication and decision, so I'll start with a test for multiplication. This fails in the expected way, treating the unrecognised '*' operator as the default, addition. 
+I could start to refactor the `calc` function, but at this point I really want to add multiplication and decision, so I'll start with a test for multiplication. This fails in the expected way, treating the unrecognised '*' operator as the default, addition.
 
 I remove the test (just commenting it out) and then make a quick refactor to the if statement in the calc function to swap it for a switch statement instead. Checking that the tests are all still green I now re-enable the multiplication test and implement a case for the '*' operator.
+
+`git checkout 679903d`
+
+It's gradually looking a bit WET (Write Everything Twice), too much duplication, but I hold off until after I'm done with division. I write a last test to cover the division case and make sure it fails before writing the implementation with a last case for the switch statement.
+
+It bugs me that there's an edge case for an unrecognised operator here, so I add a test to make sure that an unrecognised operator '!' returns an error string (just 'Error').
