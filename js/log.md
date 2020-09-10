@@ -1,8 +1,8 @@
 # A first test
 
-I've chosen to use [Infintestimal](https://www.npmjs.com/package/@gowerstreet/infintestimal), a tiny test library that I wrote a year or two ago while working with [Sibilant.js](https://sibilant.org/) a small 'compile to JS' LISP varient. Although written for Sibilant it is equally effective in plain-old JavaScript, and has the advantage of being very small, fast, and treating tests as data. Plus, it doesn't futz around with exceptions, which are the cause of multiple issues with tracing test failures.
+I've chosen to use [Infintestimal](https://www.npmjs.com/package/@gowerstreet/infintestimal), a tiny test library that I wrote a year or two ago while working with [Sibilant.js](https://sibilant.org/) a small 'compile to JS' LISP variant. Although written for Sibilant it is equally effective in plain-old JavaScript, and has the advantage of being very small, fast, and treating tests as data. Plus, it doesn't futz around with exceptions, which are the cause of multiple issues with tracing test failures.
 
-I'm adding the implementation into the same file as the tests for the moment, this is a concept called 'TDD as if you mean it', we only create other files as the target of refactorings like extract-method.
+I'm adding the implementation into the same file as the tests for the moment, this is a concept called 'TDD as if you mean it', we only create other files as the target of a refactoring like extract-method.
 
 Add a broken test for addition, important: the API for the calculator function is text based, it takes a string and returns a string. This is the basis of the REPL. With this in mind we can ignore the mechanics of the command line, textual input and printing out the answer, i.e. all I/O, and concentrate on the Evaluation part of the REPL, which is a pure function and therefore referentially transparent.
 
@@ -37,7 +37,7 @@ fails with:
 >   expected 5 but got 32
 > ✔ A lexxer should be able to split a text string into parts
 
-Oops! The addittion is adding two strings together, rather than interpret them as numbers. We fix this by using `parseInt()`, with the mental note that we'll probably need to fix this later in order to accomodate floating-point numbers.
+Oops! The addition is adding two strings together, rather than interpret them as numbers. We fix this by using `parseInt()`, with the mental note that we'll probably need to fix this later in order to accommodate floating-point numbers.
 
 > expected 3 but got 3
 
@@ -60,3 +60,8 @@ Obviously it has added the two numbers together instead of subtracting, so we ne
 
 At this point a quick refactor to make my use of quotes consistent. I'm going with single quotes because you don't need to press the shift key in order to type them, save with RSA and all that.
 
+`git checkout 1d6a28b`
+
+I could start to refactor the `calc` function, but at this point I really want to add multiplication and decision, so I'll start with a test for multiplication. This fails in the expected way, treating the unrecognised '*' operator as the default, addition. 
+
+I remove the test (just commenting it out) and then make a quick refactor to the if statement in the calc function to swap it for a switch statement instead. Checking that the tests are all still green I now re-enable the multiplication test and implement a case for the '*' operator.
