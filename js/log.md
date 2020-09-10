@@ -10,4 +10,27 @@ For the next test I want to create a lexxer, otherwise called a scanner, a thing
 
 We implement this as a simple one-liner that splits the string using a regex.
 
-Where to go next?
+Where to go next? It seems reasonable at this point to refactor the original top-level function in order to expose real behaviour rather than the fake hard-coded response, but we shouldn't do this without writing a test, so I'll add a simple test that will break the fake implementation 'A calculator can add two different numbers'. This fails with "expected 5 but got 3" forcing us to fix the `calc` function.
+
+We can do this by assuming that we're always doing addition, and just extracting the two numbers to add up from the lexxed list.
+
+The simple implementation:
+
+>   tokens = lexx(input_line)
+>   return (tokens[1] + tokens[2])
+
+fails with:
+
+> Running tests...
+>
+> ✘ A calculator can add two numbers
+>   expected 3 but got 12
+> ✘ A calculator can add two different numbers
+>   expected 5 but got 32
+> ✔ A lexxer should be able to split a text string into parts
+
+Oops! The addittion is adding two strings together, rather than interpret them as numbers. We fix this by using `parseInt()`, with the mental note that we'll probably need to fix this later in order to accomodate floating-point numbers.
+
+> expected 3 but got 3
+
+Oops again! We've got the right answer, but the assertion is expecting a string and we're giving it a number! A quick `.toString()` fixes this, but leaves a bad taste in my mouth as the code now looks quite ugly. Note to self: must refactor later.
