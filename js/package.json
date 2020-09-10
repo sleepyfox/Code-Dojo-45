@@ -1,0 +1,29 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "An implementation of the Calculator kata in JavaScript",
+  "main": "calculator.js",
+  "scripts": {
+    "test": "node test-calc.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sleepyfox/Code-Dojo-45.git"
+  },
+  "keywords": [
+    "kata",
+    "tdd",
+    "calculator",
+    "dojo"
+  ],
+  "author": "sleepyfox <sleepyfox@gmail.com>",
+  "license": "CC-BY-NC-SA-4.0",
+  "bugs": {
+    "url": "https://github.com/sleepyfox/Code-Dojo-45/issues"
+  },
+  "homepage": "https://github.com/sleepyfox/Code-Dojo-45#readme",
+  "devDependencies": {
+    "@gowerstreet/infintestimal": "^1.1.1"
+  },
+  "dependencies": {}
+}
