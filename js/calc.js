@@ -1,14 +1,17 @@
 function calc(input_line) {
-  tokens = lexx(input_line)
+  const tokens = lexx(input_line),
+        argument1 = parseInt(tokens[1]),
+        argument2 = parseInt(tokens[2])
+
   switch(tokens[0]) {
   case '-':
-    return (parseInt(tokens[1]) - parseInt(tokens[2])).toString()
+    return (argument1 - argument2).toString()
   case '+':
-    return (parseInt(tokens[1]) + parseInt(tokens[2])).toString()
+    return (argument1 + argument2).toString()
   case '*':
-    return (parseInt(tokens[1]) * parseInt(tokens[2])).toString()
+    return (argument1 * argument2).toString()
   case '/':
-    return (parseInt(tokens[1]) / parseInt(tokens[2])).toString()
+    return (argument1 / argument2).toString()
   default:
     return 'Error'
   }

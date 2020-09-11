@@ -75,3 +75,7 @@ It bugs me that there's an edge case for an unrecognised operator here, so I add
 `git checkout 2bd4386`
 
 This done it seems time for a little light refactoring. First let's move the implementation to it's own file, as the tests have gotten large enough to warrant a file of their own. Now we move the lexxer tests out into their own test suite. Note to self, support passing multiple suites to testRunner.
+
+`git checkout 8722f36`
+
+With the implementation we've got some duplication. we've got eight instances of `parseInt`, so let's extract that to two helper variables, argument1 and argument2. We run the tests after changing the first operation (subtraction), and everything is still green so I decide to do all three other operators at once, and the tests are all still green, so mission accomplished.
