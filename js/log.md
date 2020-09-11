@@ -107,3 +107,7 @@ Now I feel ready to tackle the challenge of adding nested expressions. Looking a
 First things first, I'll move all the operator handling out into a helper function, which I'll pass a list. I'll call this function `evaluate`. I could write some tests here, but because this is a 'simple' refactoring, I'll just extract the helper function. I don't need to export `evaluate` because it is still private, and not directly tested.
 
 With some renaming and stuff it just works. NOT! Turns out that I forgot that when I send it the tokens using `slice(1,3)` that the second argument to the slice is the first item that isn't included, doh! Fence-post error. Changing it to a 4 makes all the tests green again.
+
+`git checkout b5bb102`
+
+The switch statement is a bit ugly. Let's replace it with a hash lookup and just turn our operations into a lookup of simple functions.

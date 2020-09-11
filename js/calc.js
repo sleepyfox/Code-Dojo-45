@@ -7,22 +7,15 @@ function calc(input_line) {
 function evaluate(expression) {
   const [operator, a, b] = expression,
         argument1 = parseFloat(a),
-        argument2 = parseFloat(b)
+        argument2 = parseFloat(b),
+        functions = { '+': (a, b) => a + b,
+                      '-': (a, b) => a - b,
+                      '*': (a, b) => a * b,
+                      '/': (a, b) => a / b }
 
-  switch(operator) {
-  case '-':
-    result = argument1 - argument2
-    break
-  case '+':
-    result = argument1 + argument2
-    break
-  case '*':
-    result = argument1 * argument2
-    break
-  case '/':
-    result = argument1 / argument2
-    break
-  default:
+  if (operator in functions) {
+    result = functions[operator].call(this, argument1, argument2)
+  } else {
     result = 'Error'
   }
   return result
