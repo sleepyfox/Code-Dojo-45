@@ -79,3 +79,9 @@ This done it seems time for a little light refactoring. First let's move the imp
 `git checkout 8722f36`
 
 With the implementation we've got some duplication. we've got eight instances of `parseInt`, so let's extract that to two helper variables, argument1 and argument2. We run the tests after changing the first operation (subtraction), and everything is still green so I decide to do all three other operators at once, and the tests are all still green, so mission accomplished.
+
+`git checkout c55fcbc`
+
+Now we come to the first additional requirement, that we support floats as well as integers. The easiest way to support this is just to swap `parseInt` for `parseFloat`, but first let's add a test for adding two floats together. It fails as expected because the trailing '.1' and '.9' from the arguments in our test case get dropped by `parseInt`, and replacing it for `parseFloat` does indeed make all the tests pass again.
+
+At this point the four instances of `.toString` offend thine eyes, so I refactored them out into a result, which is converted to a string afterwards. This has the side-effect of removing the multiple `return`s, which can be considered a smell. It does make the `switch` statement a little more ugly by enforcing the use of `break` clauses, but I don't intend on keeping that switch around forever anyway.

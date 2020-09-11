@@ -17,8 +17,11 @@ const calc_tests =
        ['A calculator can divide two numbers', () =>
         is('42', calc('/ 84 2'))
        ],
-       ['A calculator should display an error for an unrecognised operator', () =>
+       ['A calculator will display an error for an unrecognised operator', () =>
         is('Error', calc('! 1 2'))
+       ],
+       ['A calculator can add two floating point numbers', () =>
+        is('42', calc('+ 39.1 2.9'))
        ]]
 
 const lexx_tests =

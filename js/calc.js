@@ -1,20 +1,27 @@
 function calc(input_line) {
-  const tokens = lexx(input_line),
-        argument1 = parseInt(tokens[1]),
-        argument2 = parseInt(tokens[2])
+  const tokens    = lexx(input_line),
+        argument1 = parseFloat(tokens[1]),
+        argument2 = parseFloat(tokens[2])
+
+  var result = ""
 
   switch(tokens[0]) {
   case '-':
-    return (argument1 - argument2).toString()
+    result = argument1 - argument2
+    break
   case '+':
-    return (argument1 + argument2).toString()
+    result = argument1 + argument2
+    break
   case '*':
-    return (argument1 * argument2).toString()
+    result = argument1 * argument2
+    break
   case '/':
-    return (argument1 / argument2).toString()
+    result = argument1 / argument2
+    break
   default:
-    return 'Error'
+    result = 'Error'
   }
+  return result.toString()
 }
 
 function lexx(input_line) {
