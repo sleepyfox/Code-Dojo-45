@@ -26,8 +26,8 @@ function calc(input_line) {
 
 function lexx(input_line) {
   return input_line
-    .replace('(', ' ( ')
-    .replace(')', ' ) ')
+    .replace(/\(/g, ' ( ')
+    .replace(/\)/g, ' ) ')
     .trim()
     .split(/\s+/)
 }

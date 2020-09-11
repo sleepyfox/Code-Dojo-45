@@ -27,7 +27,11 @@ const calc_tests =
 const lexx_tests =
        [['A lexxer should be able to split a text string into parts', () =>
          is(['(', '+', '1', '2', ')'], lexx('(+ 1 2)'))
-       ]]
+        ],
+        ['A lexxer can handle nested expressions', () =>
+         is(['(', '+', '(', '*', '4', '5', ')', '(', '/', '34', '2', ')', ')'],
+            lexx('(+ (* 4 5) (/ 34 2))'))
+        ]]
 
 testRunner(calc_tests)
 testRunner(lexx_tests)

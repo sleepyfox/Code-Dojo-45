@@ -93,3 +93,9 @@ Now we introduce the last of the requirements, the need to be able to group mult
 Before we do that, I change the lexxer to be able to handle parentheses in the input string, and to be able to split them out into their own tokens by surrounding them with whitespace and splitting as before.
 
 Needless to say, when the tests are changed to include parens, they all break (other than the one for the unknown operator). To fix this we'll do the simplest possible thing, which is to change which tokens we look at, ignoring the first and taking the third and fourth for our two operator arguments rather than the second and third. Again, this implementation isn't great, but it won't survive long and the most important thing is to get us back to a safe place where the tests are all green again.
+
+`git checkout a3f766d`
+
+Now we'll start working on the issue of multiple S-expressions. Our lexxer is just fine, but our ability to parse is pretty limited. In order to support arbritrary nesting of expressions, we'll move our internal format to being a tree of lists, with each list being of the form [operator, argument, argument]. Before we can do that we'll just add a forward-looking test for our lexxer in order to make sure it can handle things like `(+ (* 4 5) (/ 34 2))`.
+
+Unfortunately my first try at this doesn't work, becausee `replace` only replaces the first instance of the matched pattern if the pattern is a string. I try `replaceAll` but this is not yet supported by the most recent version of Node, so I read the MDN [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace) more closely and see that I can use `replace` I just need to use a regexp for the pattern rather than a string. I remember to escape the paren, but it _still_ doesn't work, because I forgot to add `g` after the regexp to replace _all_ occurances.
