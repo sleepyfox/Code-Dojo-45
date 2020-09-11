@@ -1,11 +1,11 @@
 function calc(input_line) {
   const tokens    = lexx(input_line),
-        argument1 = parseFloat(tokens[1]),
-        argument2 = parseFloat(tokens[2])
+        argument1 = parseFloat(tokens[2]),
+        argument2 = parseFloat(tokens[3])
 
   var result = ""
 
-  switch(tokens[0]) {
+  switch(tokens[1]) {
   case '-':
     result = argument1 - argument2
     break
@@ -25,7 +25,11 @@ function calc(input_line) {
 }
 
 function lexx(input_line) {
-  return input_line.split(/\s+/)
+  return input_line
+    .replace('(', ' ( ')
+    .replace(')', ' ) ')
+    .trim()
+    .split(/\s+/)
 }
 
 module.exports = {

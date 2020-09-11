@@ -85,3 +85,11 @@ With the implementation we've got some duplication. we've got eight instances of
 Now we come to the first additional requirement, that we support floats as well as integers. The easiest way to support this is just to swap `parseInt` for `parseFloat`, but first let's add a test for adding two floats together. It fails as expected because the trailing '.1' and '.9' from the arguments in our test case get dropped by `parseInt`, and replacing it for `parseFloat` does indeed make all the tests pass again.
 
 At this point the four instances of `.toString` offend thine eyes, so I refactored them out into a result, which is converted to a string afterwards. This has the side-effect of removing the multiple `return`s, which can be considered a smell. It does make the `switch` statement a little more ugly by enforcing the use of `break` clauses, but I don't intend on keeping that switch around forever anyway.
+
+`git checkout 1b96d1f`
+
+Now we introduce the last of the requirements, the need to be able to group multiple operations. At this point I decide on a new design direction, we'll use S-expressions. My choice here is that I'm gambling that it will make the separation of multiple operators easier by removing the concerns of operator precendence. The first step here is to make the calculator handle a single S-expression, which will require some changes to almost _all_ of the tests.
+
+Before we do that, I change the lexxer to be able to handle parentheses in the input string, and to be able to split them out into their own tokens by surrounding them with whitespace and splitting as before.
+
+Needless to say, when the tests are changed to include parens, they all break (other than the one for the unknown operator). To fix this we'll do the simplest possible thing, which is to change which tokens we look at, ignoring the first and taking the third and fourth for our two operator arguments rather than the second and third. Again, this implementation isn't great, but it won't survive long and the most important thing is to get us back to a safe place where the tests are all green again.
