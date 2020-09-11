@@ -1,24 +1,5 @@
 const {is, testRunner} = require('@gowerstreet/infintestimal')
-
-function calc(input_line) {
-  tokens = lexx(input_line)
-  switch(tokens[0]) {
-  case '-':
-    return (parseInt(tokens[1]) - parseInt(tokens[2])).toString()
-  case '+':
-    return (parseInt(tokens[1]) + parseInt(tokens[2])).toString()
-  case '*':
-    return (parseInt(tokens[1]) * parseInt(tokens[2])).toString()
-  case '/':
-    return (parseInt(tokens[1]) / parseInt(tokens[2])).toString()
-  default:
-    return 'Error'
-  }
-}
-
-function lexx(input_line) {
-  return input_line.split(/\s+/)
-}
+const {calc, lexx} = require('./calc')
 
 const calc_tests =
       [['A calculator can add two numbers', () =>

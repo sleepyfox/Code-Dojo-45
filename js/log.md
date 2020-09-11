@@ -70,4 +70,8 @@ I remove the test (just commenting it out) and then make a quick refactor to the
 
 It's gradually looking a bit WET (Write Everything Twice), too much duplication, but I hold off until after I'm done with division. I write a last test to cover the division case and make sure it fails before writing the implementation with a last case for the switch statement.
 
-It bugs me that there's an edge case for an unrecognised operator here, so I add a test to make sure that an unrecognised operator '!' returns an error string (just 'Error').
+It bugs me that there's an edge case for an unrecognised operator here, so I add a test to make sure that an unrecognised operator '!' returns an error string (just 'Error' for now).
+
+`git checkout 2bd4386`
+
+This done it seems time for a little light refactoring. First let's move the implementation to it's own file, as the tests have gotten large enough to warrant a file of their own.
