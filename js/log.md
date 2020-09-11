@@ -74,4 +74,4 @@ It bugs me that there's an edge case for an unrecognised operator here, so I add
 
 `git checkout 2bd4386`
 
-This done it seems time for a little light refactoring. First let's move the implementation to it's own file, as the tests have gotten large enough to warrant a file of their own.
+This done it seems time for a little light refactoring. First let's move the implementation to it's own file, as the tests have gotten large enough to warrant a file of their own. Now we move the lexxer tests out into their own test suite. Note to self, support passing multiple suites to testRunner.

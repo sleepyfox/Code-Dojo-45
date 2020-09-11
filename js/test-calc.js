@@ -19,9 +19,12 @@ const calc_tests =
        ],
        ['A calculator should display an error for an unrecognised operator', () =>
         is('Error', calc('! 1 2'))
-       ],
-       ['A lexxer should be able to split a text string into parts', () =>
+       ]]
+
+const lexx_tests =
+       [['A lexxer should be able to split a text string into parts', () =>
         is(['+', '1', '2'], lexx('+ 1 2'))
        ]]
 
 testRunner(calc_tests)
+testRunner(lexx_tests)
