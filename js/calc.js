@@ -1,11 +1,15 @@
 function calc(input_line) {
-  const tokens    = lexx(input_line),
-        argument1 = parseFloat(tokens[2]),
-        argument2 = parseFloat(tokens[3])
+  const tokens = lexx(input_line),
+        result = evaluate(tokens.slice(1,4))
+  return result.toString()
+}
 
-  var result = ""
+function evaluate(expression) {
+  const [operator, a, b] = expression,
+        argument1 = parseFloat(a),
+        argument2 = parseFloat(b)
 
-  switch(tokens[1]) {
+  switch(operator) {
   case '-':
     result = argument1 - argument2
     break
@@ -21,7 +25,7 @@ function calc(input_line) {
   default:
     result = 'Error'
   }
-  return result.toString()
+  return result
 }
 
 function lexx(input_line) {

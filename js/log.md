@@ -96,6 +96,14 @@ Needless to say, when the tests are changed to include parens, they all break (o
 
 `git checkout a3f766d`
 
-Now we'll start working on the issue of multiple S-expressions. Our lexxer is just fine, but our ability to parse is pretty limited. In order to support arbritrary nesting of expressions, we'll move our internal format to being a tree of lists, with each list being of the form [operator, argument, argument]. Before we can do that we'll just add a forward-looking test for our lexxer in order to make sure it can handle things like `(+ (* 4 5) (/ 34 2))`.
+Now we'll start working on the issue of multiple S-expressions. Our lexxer is just fine, but our ability to parse is pretty limited. In order to support arbritrary nesting of expressions, we'll move our internal format to being a tree of lists, with each list being of the form `[operator, argument, argument]`. Before we can do that we'll just add a forward-looking test for our lexxer in order to make sure it can handle things like `(+ (* 4 5) (/ 34 2))`.
 
 Unfortunately my first try at this doesn't work, becausee `replace` only replaces the first instance of the matched pattern if the pattern is a string. I try `replaceAll` but this is not yet supported by the most recent version of Node, so I read the MDN [docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace) more closely and see that I can use `replace` I just need to use a regexp for the pattern rather than a string. I remember to escape the paren, but it _still_ doesn't work, because I forgot to add `g` after the regexp to replace _all_ occurances.
+
+`git checkout 199630b`
+
+Now I feel ready to tackle the challenge of adding nested expressions. Looking at the code I need to do something in the `calc` function, before I get to the switch statement. Obviously I can't hardcode arguments anymore, so it seems the first step is to change the intermediate representation from a simple list of tokens to a tree of functions as we said earlier, of the form `[operator, argument, argument]`. To begin with I'll make this a refactoring, so that I can keep the tests green.
+
+First things first, I'll move all the operator handling out into a helper function, which I'll pass a list. I'll call this function `evaluate`. I could write some tests here, but because this is a 'simple' refactoring, I'll just extract the helper function. I don't need to export `evaluate` because it is still private, and not directly tested.
+
+With some renaming and stuff it just works. NOT! Turns out that I forgot that when I send it the tokens using `slice(1,3)` that the second argument to the slice is the first item that isn't included, doh! Fence-post error. Changing it to a 4 makes all the tests green again.
