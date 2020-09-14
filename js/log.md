@@ -111,3 +111,11 @@ With some renaming and stuff it just works. NOT! Turns out that I forgot that wh
 `git checkout b5bb102`
 
 The switch statement is a bit ugly. Let's replace it with a hash lookup and just turn our operations into a lookup of simple functions.
+
+`git checkout dc2e431`
+
+In order to work with multiple expressions, we'll start with a test for one of the simplest possible cases `(+ 1 (+ 2 3))`, this will require us to turn a list of tokens into a tree of expressions.
+
+That test fails as expected. First let's pull out our slice of tokens into a parse helper function that takes a list of tokens and returns a tree of expressions. Currently it'll just return the slice of tokens, because this is just a refactor. This works and all the tests are green except for our nested expression test.
+
+It is at this point that I want to write some tests for my parser, because I certainly don't trust myself with getting a recursive expression reducer right first time! The simplest possible test that I can have at this point is just to replicate the functionality that we have currently.

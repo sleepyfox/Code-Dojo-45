@@ -1,20 +1,21 @@
 function calc(input_line) {
-  const tokens = lexx(input_line),
-        result = evaluate(tokens.slice(1,4))
+  const tokens      = lexx(input_line),
+        expressions = parse(tokens),
+        result      = evaluate(expressions)
   return result.toString()
 }
 
 function evaluate(expression) {
-  const [operator, a, b] = expression,
-        argument1 = parseFloat(a),
-        argument2 = parseFloat(b),
-        functions = { '+': (a, b) => a + b,
+  const functions = { '+': (a, b) => a + b,
                       '-': (a, b) => a - b,
                       '*': (a, b) => a * b,
-                      '/': (a, b) => a / b }
+                      '/': (a, b) => a / b },
+        [operator, a, b] = expression,
+        argument1 = parseFloat(a),
+        argument2 = parseFloat(b)
 
   if (operator in functions) {
-    result = functions[operator].call(this, argument1, argument2)
+    result = functions[operator](argument1, argument2)
   } else {
     result = 'Error'
   }
@@ -29,7 +30,12 @@ function lexx(input_line) {
     .split(/\s+/)
 }
 
+function parse(tokens) {
+  return tokens.slice(1,4)
+}
+
 module.exports = {
   calc: calc,
-  lexx: lexx
+  lexx: lexx,
+  parse: parse
 }

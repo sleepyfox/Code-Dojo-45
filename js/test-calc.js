@@ -1,5 +1,5 @@
 const {is, testRunner} = require('@gowerstreet/infintestimal')
-const {calc, lexx} = require('./calc')
+const {calc, parse, lexx} = require('./calc')
 
 const calc_tests =
       [['A calculator can add two numbers', () =>
@@ -23,6 +23,9 @@ const calc_tests =
        ['A calculator can add two floating point numbers', () =>
         is('42', calc('(+ 39.1 2.9)'))
        ]]
+       // ['A calculator can handle a nested expression', () =>
+       //  is('6', calc('(+ 1 (+ 2 3))'))
+       // ]]
 
 const lexx_tests =
        [['A lexxer should be able to split a text string into parts', () =>
@@ -33,5 +36,11 @@ const lexx_tests =
             lexx('(+ (* 4 5) (/ 34 2))'))
         ]]
 
+const parser_tests =
+      [['A parser can turn tokens into a AST', () =>
+        is(['+', '1', '2'], parse(['(', '+', '1', '2', ')']))
+       ]]
+
 testRunner(calc_tests)
 testRunner(lexx_tests)
+testRunner(parser_tests)
