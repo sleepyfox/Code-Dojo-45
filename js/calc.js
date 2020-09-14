@@ -10,12 +10,10 @@ function evaluate(expression) {
                       '-': (a, b) => a - b,
                       '*': (a, b) => a * b,
                       '/': (a, b) => a / b },
-        [operator, a, b] = expression,
-        argument1 = parseFloat(a),
-        argument2 = parseFloat(b)
+        [operator, a, b] = expression
 
   if (operator in functions) {
-    result = functions[operator](argument1, argument2)
+    result = functions[operator](a, b)
   } else {
     result = 'Error'
   }
@@ -31,7 +29,10 @@ function lexx(input_line) {
 }
 
 function parse(tokens) {
-  return tokens.slice(1,4)
+  ast = tokens.slice(1,4)
+  ast[1] = parseFloat(ast[1])
+  ast[2] = parseFloat(ast[2])
+  return ast
 }
 
 module.exports = {

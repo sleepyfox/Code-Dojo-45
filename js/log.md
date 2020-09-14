@@ -119,3 +119,7 @@ In order to work with multiple expressions, we'll start with a test for one of t
 That test fails as expected. First let's pull out our slice of tokens into a parse helper function that takes a list of tokens and returns a tree of expressions. Currently it'll just return the slice of tokens, because this is just a refactor. This works and all the tests are green except for our nested expression test.
 
 It is at this point that I want to write some tests for my parser, because I certainly don't trust myself with getting a recursive expression reducer right first time! The simplest possible test that I can have at this point is just to replicate the functionality that we have currently.
+
+`git checkout 8459095`
+
+At this point I want to do some refactoring in order to change the way the parser works. Firstly I'd like to make it responsible for taking strings and turning them into numbers, rather than have evaluate responsible for that step. I change the parser test to call this out explicitly. For the moment I'll leave the arithmetic functions as strings.

@@ -37,9 +37,13 @@ const lexx_tests =
         ]]
 
 const parser_tests =
-      [['A parser can turn tokens into a AST', () =>
-        is(['+', '1', '2'], parse(['(', '+', '1', '2', ')']))
-       ]]
+      [['A parser can turn tokens into a AST', () => {
+        const result = parse(['(', '+', '1', '2', ')'])
+        return (is(true, Array.isArray(result)) &&
+                is('+', result[0]) &&
+                is(1, result[1]) &&
+                is(2, result[2]))
+      }]]
 
 testRunner(calc_tests)
 testRunner(lexx_tests)
