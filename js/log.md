@@ -131,3 +131,9 @@ My initial thought was to just turn the parser into a simple recursive function.
 So what I've ended up with is something that looks a bit like a Frankenstein's monster of imperative and functional programming. I'm hoping to apply the principle of "First make it work, then make it elegant. Only finally if necessary make it fast".
 
 Now that this works (for any particular value of 'works') I can re-enable the failing test for handling nested expressions. This, of course, fails, because although parsing now works for nested expressions, evaluation doesn't. We fix evaluation with a simple test that either of the arguments can be nested, and the test passes.
+
+`git checkout e3528b5`
+
+Let's now refactor the evaluator to remove the two conditionals that deal with nested expressions, and just allow any part of an expression to be nested, even the operator. Technically this isn't a refactoring, because functionality has changed, though as this isn't somthing that is tested yet, we can get away with it :)
+
+I moved `flatten` out to the top level so it could be independently tested, just because it recursively calls evaluate.

@@ -5,19 +5,21 @@ function calc(input_line) {
   return result.toString()
 }
 
+function flatten(a) {
+  if (Array.isArray(a)) {
+    return evaluate(a)
+  } else {
+    return a
+  }
+}
+
 function evaluate(expression) {
   const functions = { '+': (a, b) => a + b,
                       '-': (a, b) => a - b,
                       '*': (a, b) => a * b,
-                      '/': (a, b) => a / b }
-  var [operator, a, b] = expression
-
-  if (Array.isArray(a)) {
-    a = evaluate(a)
-  }
-  if (Array.isArray(b)) {
-    b = evaluate(b)
-  }
+                      '/': (a, b) => a / b },
+        unnested_expression = expression.map(flatten),
+        [operator, a, b] = unnested_expression
 
   if (operator in functions) {
     result = functions[operator](a, b)
@@ -65,5 +67,6 @@ function parse(tokens) {
 module.exports = {
   calc: calc,
   lexx: lexx,
-  parse: parse
+  parse: parse,
+  flatten, flatten
 }

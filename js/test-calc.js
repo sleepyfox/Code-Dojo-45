@@ -1,5 +1,5 @@
 const {is, testRunner} = require('@gowerstreet/infintestimal')
-const {calc, parse, lexx} = require('./calc')
+const {calc, parse, lexx, flatten} = require('./calc')
 
 const calc_tests =
       [['A calculator can add two numbers', () =>
@@ -45,6 +45,15 @@ const parser_tests =
                 is(2, result[2]))
       }]]
 
+const flatten_tests =
+      [['Flattening an ordinary expression has no change', () =>
+        is(['+', 2, 3], ['+', 2, 3].map(flatten))
+       ],
+       ['Flattening a nested expression evaluates the nest', () =>
+        is(['+', 1, 5], ['+', 1, ['+', 2, 3]].map(flatten))
+       ]]
+
 testRunner(calc_tests)
 testRunner(lexx_tests)
 testRunner(parser_tests)
+testRunner(flatten_tests)
