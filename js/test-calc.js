@@ -22,10 +22,10 @@ const calc_tests =
        ],
        ['A calculator can add two floating point numbers', () =>
         is('42', calc('(+ 39.1 2.9)'))
+       ],
+       ['A calculator can handle a nested expression', () =>
+        is('6', calc('(+ 1 (+ 2 3))'))
        ]]
-       // ['A calculator can handle a nested expression', () =>
-       //  is('6', calc('(+ 1 (+ 2 3))'))
-       // ]]
 
 const lexx_tests =
        [['A lexxer should be able to split a text string into parts', () =>

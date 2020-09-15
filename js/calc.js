@@ -9,8 +9,15 @@ function evaluate(expression) {
   const functions = { '+': (a, b) => a + b,
                       '-': (a, b) => a - b,
                       '*': (a, b) => a * b,
-                      '/': (a, b) => a / b },
-        [operator, a, b] = expression
+                      '/': (a, b) => a / b }
+  var [operator, a, b] = expression
+
+  if (Array.isArray(a)) {
+    a = evaluate(a)
+  }
+  if (Array.isArray(b)) {
+    b = evaluate(b)
+  }
 
   if (operator in functions) {
     result = functions[operator](a, b)
@@ -29,9 +36,29 @@ function lexx(input_line) {
 }
 
 function parse(tokens) {
-  ast = tokens.slice(1,4)
-  ast[1] = parseFloat(ast[1])
-  ast[2] = parseFloat(ast[2])
+  var ast = [],
+      i = 0,
+      token = tokens[i]
+
+  if (token !== '(') {
+    return 'Error'
+  } else {
+    i++
+    token = tokens[i]
+  }
+
+  while (token !== ')' && i < tokens.length) {
+    if (token === '(') {
+      ast.push(parse(tokens.slice(i)))
+    } else if (isNaN(parseFloat(token))) {
+      ast.push(token)
+    } else {
+      ast.push(parseFloat(token))
+    }
+
+    i++
+    token = tokens[i]
+  }
   return ast
 }
 

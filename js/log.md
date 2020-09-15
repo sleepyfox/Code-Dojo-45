@@ -123,3 +123,11 @@ It is at this point that I want to write some tests for my parser, because I cer
 `git checkout 8459095`
 
 At this point I want to do some refactoring in order to change the way the parser works. Firstly I'd like to make it responsible for taking strings and turning them into numbers, rather than have evaluate responsible for that step. I change the parser test to call this out explicitly. For the moment I'll leave the arithmetic functions as strings.
+
+`git checkout 13bf8d4`
+
+My initial thought was to just turn the parser into a simple recursive function. Of course, there is only one difference between theory and practice, that is that in theory there is no differnce between theory and practice but in practice there is (Fox's second law of software development). Needless to say I tripped over my own shoelaces, not in this case because of recursion, but because of NaN != NaN in JavaScript, doh!
+
+So what I've ended up with is something that looks a bit like a Frankenstein's monster of imperative and functional programming. I'm hoping to apply the principle of "First make it work, then make it elegant. Only finally if necessary make it fast".
+
+Now that this works (for any particular value of 'works') I can re-enable the failing test for handling nested expressions. This, of course, fails, because although parsing now works for nested expressions, evaluation doesn't. We fix evaluation with a simple test that either of the arguments can be nested, and the test passes.
