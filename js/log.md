@@ -137,3 +137,11 @@ Now that this works (for any particular value of 'works') I can re-enable the fa
 Let's now refactor the evaluator to remove the two conditionals that deal with nested expressions, and just allow any part of an expression to be nested, even the operator. Technically this isn't a refactoring, because functionality has changed, though as this isn't somthing that is tested yet, we can get away with it :)
 
 I moved `flatten` out to the top level so it could be independently tested, just because it recursively calls evaluate.
+
+`git checkout ab5d438`
+
+Now that we're sure that flatten works for the simple case, let's add a more complex test of the evaluator: `(/ (* 6 7) (- 3 1))`
+
+It turns out that this fails, and when delving into why it seems the parser is failing on our multiply nested expression. We'll set up a new test for this specifically and comment out the evaluator test. It turns out that the problem is that when returning from the recursive call, we are still at the point in the list of tokens that we left off, rather than the token counter being moved on by the sub-procedure.
+
+After an attempt at bug-fixing the parser it becomes clear that a better design is necessary, because the current implementation isn't ameanable to fixing. It is at this point that I make the choice to revert the changes, and start over with a better design.
