@@ -145,3 +145,9 @@ Now that we're sure that flatten works for the simple case, let's add a more com
 It turns out that this fails, and when delving into why it seems the parser is failing on our multiply nested expression. We'll set up a new test for this specifically and comment out the evaluator test. It turns out that the problem is that when returning from the recursive call, we are still at the point in the list of tokens that we left off, rather than the token counter being moved on by the sub-procedure.
 
 After an attempt at bug-fixing the parser it becomes clear that a better design is necessary, because the current implementation isn't ameanable to fixing. It is at this point that I make the choice to revert the changes, and start over with a better design.
+
+For this design I think something similar, where a list of tokens is parsed (eaten) in chunks. Each chunk is processed by the sub-process beneath it. When it returns it also passes back the number of chunks it has eaten, and the input list is advanced to this point. This prevents us from 'losing our place' in the list of input tokens.
+
+I start by commenting out the test runners for everything but the parser, and then working up the parser implementation a piece at a time, from the simple `tokens.map(convert).slice(1,4)` that I had many commits before up into a two-layer function with an inner function up to a full recursive descent. A final 'torture test' string of `(+ (* 2 11) (* (+ 1 1) (- 11 (- 3 2))))` confirms that both parser and evaluator are working correctly.
+
+The implementation still isn't quite as clean as I'd like at this point but as it works and all the tests are green I'm happy to commit.

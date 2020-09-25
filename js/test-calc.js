@@ -25,10 +25,13 @@ const calc_tests =
        ],
        ['A calculator can handle a nested expression', () =>
         is('6', calc('(+ 1 (+ 2 3))'))
+       ],
+       ['A calculator can handle multiple nested exps', () =>
+        is('21', calc('(/ (* 6 7) (- 3 1))'))
+       ],
+       ['A calculator can calculate multiply nested exps', () =>
+        is('42', calc('(+ (* 2 11) (* (+ 1 1) (- 11 (- 3 2))))'))
        ]]
-       // ['A calculator can handle multiple nested exps', () =>
-       //  is('21', calc('(/ (* 6 7) (- 3 1))'))
-       // ]]
 
 const lexx_tests =
        [['A lexxer should be able to split a text string into parts', () =>
@@ -46,16 +49,16 @@ const parser_tests =
                  is('+', result[0]) &&
                  is(1, result[1]) &&
                  is(2, result[2]))
+      }],
+       ['A parser can parse nested expressions', () => {
+         // (+ (+ 1 2) (+ 4 5))
+         const a = ['(', '+',
+                    '(', '+', '1', '2', ')',
+                    '(', '+', '4', '5', ')', ')'],
+               result = parse(a),
+               expected = ['+', ['+', 1, 2], ['+', 4, 5]]
+         return is(expected, result)
        }]]
-       // ['', () => {
-       //   // (+ (+ 1 2) (+ 4 5))
-       //   const a = ['(', '+',
-       //              '(', '+', '1', '2', ')',
-       //              '(', '+', '4', '5', ')', ')'],
-       //         result = parse(a),
-       //         expected = ['+', ['+', 1, 2], ['+', 4, 5]]
-       //   return is(expected, result)
-       // }]]
 
 const flatten_tests =
       [['Flattening an ordinary expression has no change', () =>
@@ -67,5 +70,5 @@ const flatten_tests =
 
 testRunner(calc_tests)
 testRunner(lexx_tests)
-testRunner(parser_tests)
 testRunner(flatten_tests)
+testRunner(parser_tests)

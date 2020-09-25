@@ -37,31 +37,45 @@ function lexx(input_line) {
     .split(/\s+/)
 }
 
-function parse(tokens) {
-  var ast = [],
-      i = 0,
-      token = tokens[i]
+// Inner recursive descent parser
+// Params: (t) is a list of string tokens
+// Output: [n, e]
+//   n is the number of tokens parsed
+//   e is the parsed subexpression
+function inner_parse(t) {
+  var tokens = t,
+      count = 1, // first skip the opening paren
+      ast = [],
+      n = 0,
+      expr = []
 
-  if (token !== '(') {
-    return 'Error'
-  } else {
-    i++
-    token = tokens[i]
-  }
-
-  while (token !== ')' && i < tokens.length) {
-    if (token === '(') {
-      ast.push(parse(tokens.slice(i)))
-    } else if (isNaN(parseFloat(token))) {
-      ast.push(token)
+  // Numbers are converted, strings are left as is
+  var convert = (t) => {
+    if (isNaN(parseFloat(t))) {
+      return t
     } else {
-      ast.push(parseFloat(token))
+      return parseFloat(t)
     }
-
-    i++
-    token = tokens[i]
   }
-  return ast
+
+  while (tokens[count] != ')') {
+    if (tokens[count] == '(') {
+      [n, expr] = inner_parse(tokens.slice(count))
+      count = count + n
+      ast.push(expr)
+    } else {
+      ast.push(convert(tokens[count]))
+      count++
+    }
+  }
+  //    console.log(ast, count)
+  return [count + 1, ast]
+}
+
+function parse(tokens) {
+  // This can only be this simple because we decide that all expressions
+  // Must be s-expressions
+  return inner_parse(tokens)[1]
 }
 
 module.exports = {
